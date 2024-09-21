@@ -1,0 +1,39 @@
+//clauren kaye
+import java.util.Scanner;
+public class Converter {
+
+    public static void main(String[] args) {
+        // Input
+        try (Scanner scanner = new Scanner(System.in)) {
+            // Input
+            System.out.print("Enter the number: ");
+            String number = scanner.next();
+            System.out.print("Enter the base of the number (2-36): ");
+            int fromBase = scanner.nextInt();
+            System.out.print("Enter the target base (2-36): ");
+            int toBase = scanner.nextInt();
+            
+            // Convert from the original base to decimal
+            int decimalValue = 0;
+            for (char digit : number.toUpperCase().toCharArray()) {
+                int digitValue = Character.isDigit(digit) ? digit - '0' : digit - 'A' + 10;
+                decimalValue = decimalValue * fromBase + digitValue;
+            }
+            
+            // Convert from decimal to the target base
+            String result = "";
+            if (decimalValue == 0) {
+                result = "0";
+            } else {
+                while (decimalValue > 0) {
+                    int remainder = decimalValue % toBase;
+                    result = (remainder < 10 ? (char) ('0' + remainder) : (char) ('A' + (remainder - 10))) + result;
+                    decimalValue /= toBase;
+                }
+            }
+            
+            // Output
+            System.out.println("Converted number: " + result);
+        }
+    }
+}
